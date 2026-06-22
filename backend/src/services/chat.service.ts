@@ -9,10 +9,17 @@ import { providerRegistry } from '../adapters/provider.registry.js';
 import { logger } from '../utils/logger.js';
 
 export class ChatService {
+  /**
+   * @param provider        Provider ID to route to
+   * @param request         Normalized chat request
+   * @param onChunk         Callback called with each streamed text chunk
+   * @param externalSignal  Optional AbortSignal from the HTTP layer (client disconnect)
+   */
   async streamChat(
     provider: ProviderId,
     request: NormalizedChatRequest,
     onChunk: (chunk: string) => void,
+    externalSignal?: AbortSignal,
   ): Promise<NormalizedChatResponse> {
     const adapter = providerRegistry.get(provider);
 
@@ -32,8 +39,17 @@ export class ChatService {
       );
     }
 
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), env.PROVIDER_TIMEOUT_MS);
+    // Internal timeout controller
+    const timeoutController = new AbortController();
+    const timeoutId = setTimeout(
+      () => timeoutController.abort('timeout'),
+      env.PROVIDER_TIMEOUT_MS,
+    );
+
+    // Combine timeout + client-disconnect signals (Node.js 20+ AbortSignal.any)
+    const combinedSignal = externalSignal
+      ? AbortSignal.any([timeoutController.signal, externalSignal])
+      : timeoutController.signal;
 
     try {
       logger.info(
@@ -41,7 +57,7 @@ export class ChatService {
         'Chat request started',
       );
 
-      const result = await adapter.streamChat(request, onChunk, controller.signal);
+      const result = await adapter.streamChat(request, onChunk, combinedSignal);
 
       logger.info(
         { provider, finishReason: result.finishReason, usage: result.usage },
@@ -50,6 +66,11 @@ export class ChatService {
 
       return result;
     } catch (err) {
+      // If the client disconnected, swallow the error — it's expected, not a bug
+      if (externalSignal?.aborted) {
+        logger.debug({ provider }, 'Request aborted by client disconnect');
+        return { fullText: '', finishReason: 'stop', usage: {} };
+      }
       logger.error({ provider, err }, 'Chat request failed');
       throw err;
     } finally {

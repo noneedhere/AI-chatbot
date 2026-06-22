@@ -144,11 +144,18 @@ export class OpenRouterAdapter implements LLMProviderAdapter {
         }
       }
     } catch (err: any) {
-      logger.error({ provider: this.id, err }, 'OpenRouter stream error');
       if (err instanceof ProviderError) throw err;
-      if (err?.name === 'AbortError' || err?.name === 'TimeoutError') {
+      if (err?.name === 'AbortError') {
+        const reason = (signal as any).reason;
+        if (reason === 'client_disconnect') {
+          // User clicked Stop — return partial text cleanly, no error
+          logger.debug({ provider: this.id }, 'Stream aborted by client disconnect');
+          return { fullText, finishReason: 'stop', usage };
+        }
+        // Server-side timeout
         throw new ProviderError('PROVIDER_TIMEOUT', `${this.displayName} request timed out.`, 408);
       }
+      logger.error({ provider: this.id, err }, 'OpenRouter stream error');
       throw new ProviderError(
         'PROVIDER_ERROR',
         `${this.displayName} error: ${err?.message ?? 'Unknown error'}`,
