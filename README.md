@@ -1,4 +1,19 @@
-# Simple AI Chatbot — Poly Chat
+<p align="center">
+  <h1 align="center">💬 Simple AI Chatbot — Poly Chat</h1>
+  <p align="center">
+    <strong>Poly Chat</strong> — A multi-provider AI chatbot with real-time streaming<br>
+    built with React 18, Express 4, and TypeScript
+  </p>
+  <p align="center">
+    <img src="https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React 18">
+    <img src="https://img.shields.io/badge/TypeScript-5.5-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript 5.5">
+    <img src="https://img.shields.io/badge/Express-4-000000?style=flat-square&logo=express&logoColor=white" alt="Express 4">
+    <img src="https://img.shields.io/badge/Vite-5-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite 5">
+    <img src="https://img.shields.io/badge/Tailwind_CSS-3-38B2AC?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS 3">
+    <img src="https://img.shields.io/badge/Node.js-20+-339933?style=flat-square&logo=nodedotjs&logoColor=white" alt="Node.js 20+">
+    <img src="https://img.shields.io/badge/OpenRouter-API-6366F1?style=flat-square&logo=openai&logoColor=white" alt="OpenRouter API">
+  </p>
+</p>
 
 Poly Chat is a multi-provider AI chatbot that lets users converse with multiple large language models through a single, unified interface. Built as a full-stack TypeScript monorepo, it routes conversations through [OpenRouter](https://openrouter.ai) to seamlessly switch between **ChatGPT** (OpenAI), **Nemotron 3 Super** (NVIDIA), and **Gemma 4 26B** (Google) — all without leaving the chat window.
 
