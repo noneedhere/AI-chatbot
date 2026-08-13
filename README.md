@@ -465,5 +465,5 @@ No license has been specified in the repository.
 ---
 
 <p align="center">
-  Built with ❤️ using Laravel & Tailwind CSS
+  Built with ❤️ using Vite, Tailwind Css & Openrouter 
 </p>
