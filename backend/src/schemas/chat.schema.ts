@@ -6,7 +6,7 @@ const messageSchema = z.object({
 });
 
 export const chatRequestSchema = z.object({
-  provider: z.enum(['gpt']),
+  provider: z.enum(['gpt', 'nemotron', 'gemma']),
   messages: z
     .array(messageSchema)
     .min(1, 'messages must contain at least one message'),

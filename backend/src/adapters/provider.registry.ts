@@ -35,6 +35,22 @@ providerRegistry.register(new OpenRouterAdapter({
   apiKey: env.GPT_API_KEY ?? '',
 }));
 
+// Register NVIDIA Nemotron 3 Super via OpenRouter
+providerRegistry.register(new OpenRouterAdapter({
+  id: 'nemotron',
+  displayName: 'Nemotron 3 Super',
+  model: env.NEMOTRON_DEFAULT_MODEL,
+  apiKey: env.NEMOTRON_API_KEY ?? '',
+}));
+
+// Register Google Gemma 4 26B A4B via OpenRouter
+providerRegistry.register(new OpenRouterAdapter({
+  id: 'gemma',
+  displayName: 'Gemma 4 26B A4B',
+  model: env.GEMMA_DEFAULT_MODEL,
+  apiKey: env.GEMMA_API_KEY ?? '',
+}));
+
 export async function initializeRegistry(): Promise<void> {
-  logger.info('Provider registry initialized — GPT via OpenRouter');
+  logger.info('Provider registry initialized — GPT, Nemotron, Gemma via OpenRouter');
 }
