@@ -55,7 +55,7 @@ export default function Header() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-3 3-3-3z" />
             </svg>
           </div>
-          <span className="font-semibold text-gray-900 dark:text-white text-base tracking-tight">SIMPLY CHAT</span>
+          <span className="font-semibold text-gray-900 dark:text-white text-base tracking-tight">Poly Chat</span>
         </div>
       </div>
 
