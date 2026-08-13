@@ -1,4 +1,4 @@
-export type ProviderId = 'gpt';
+export type ProviderId = 'gpt' | 'nemotron' | 'gemma';
 
 export interface Message {
   id: string;

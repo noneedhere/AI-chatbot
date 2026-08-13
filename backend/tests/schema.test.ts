@@ -12,6 +12,16 @@ describe('chatRequestSchema', () => {
     expect(result.success).toBe(true);
   });
 
+  it('accepts nemotron as a valid provider', () => {
+    const result = chatRequestSchema.safeParse({ ...validBody, provider: 'nemotron' });
+    expect(result.success).toBe(true);
+  });
+
+  it('accepts gemma as a valid provider', () => {
+    const result = chatRequestSchema.safeParse({ ...validBody, provider: 'gemma' });
+    expect(result.success).toBe(true);
+  });
+
   it('rejects an unknown provider', () => {
     const result = chatRequestSchema.safeParse({ ...validBody, provider: 'deepseek' });
     expect(result.success).toBe(false);
