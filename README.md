@@ -456,14 +456,14 @@ User ← React State (useReducer) ← SSE Parser ← Express SSE Writer
 
 No license has been specified in the repository.
 
----
-
-<p align="center">
-  Built with ❤️ using Laravel & Tailwind CSS
-</p>
-
 
 ## Contact
 
 - **LinkedIn:** [Zidane Rosyidi](https://www.linkedin.com/in/zidane-rosyidi-6b438333b/)
 - **Email:** [zidanerosyidi@gmail.com](mailto:zidanerosyidi@gmail.com)
+
+---
+
+<p align="center">
+  Built with ❤️ using Laravel & Tailwind CSS
+</p>
